@@ -1,3 +1,5 @@
+'use strict';
+
 class RippleEffect {
 	constructor(el) {
 		this.el = el;
@@ -45,27 +47,24 @@ class RippleEffect {
 		return wave;
 	}
 
-	removeRippleFunc(e) {
-		const styles = window.getComputedStyle(e.target);
+	handleRippleEvent(keyboard = false, e) {
+		if (keyboard === true) {
+			if (e.key !== ' ' && e.key !== 'Enter') return;
+			if (e.target !== this.el) return;
+			if (e.repeat) return;
 
-		const waveRemoveDelay = styles.getPropertyValue(
-			'--paper-ripple-duration-wms'
-		);
-		const waveOpacityMS = styles.getPropertyValue(
-			'--paper-ripple-opacity-duration-wms'
-		);
+			const wave = this.createWave();
 
-		setTimeout(() => {
-			this.wave.classList.add('paper-ripple-opacity-animate');
-			setTimeout(() => {
-				this.wave.remove();
-			}, waveOpacityMS);
-		}, waveRemoveDelay);
-	}
+			this.setCoordinates(e, wave, true);
 
-	rippleElement() {
-		this.el.classList.add('ripple');
-		this.el.addEventListener('pointerdown', e => {
+			const rippleRemoverFunction = this.removeRippleFunc.bind({
+				...this,
+				wave,
+			});
+
+			this.el.addEventListener('keyup', rippleRemoverFunction, { once: true });
+		} else {
+			const e = arguments[0];
 			if (e.target !== this.el) return;
 			if (e.buttons !== 1) return;
 
@@ -86,23 +85,35 @@ class RippleEffect {
 			this.el.addEventListener('dragend', rippleRemoverFunction, {
 				once: true,
 			});
-		});
-		this.el.addEventListener('keydown', e => {
-			if (e.key !== ' ' && e.key !== 'Enter') return;
-			if (e.target !== this.el) return;
-			if (e.repeat) return;
+		}
+	}
 
-			const wave = this.createWave();
+	removeRippleFunc(e) {
+		const styles = window.getComputedStyle(e.target);
 
-			this.setCoordinates(e, wave, true);
+		const waveRemoveDelay = styles.getPropertyValue(
+			'--paper-ripple-duration-wms'
+		);
+		const waveOpacityMS = styles.getPropertyValue(
+			'--paper-ripple-opacity-duration-wms'
+		);
 
-			const rippleRemoverFunction = this.removeRippleFunc.bind({
-				...this,
-				wave,
-			});
+		setTimeout(() => {
+			this.wave.classList.add('paper-ripple-opacity-animate');
+			setTimeout(() => {
+				this.wave.remove();
+			}, waveOpacityMS);
+		}, waveRemoveDelay);
+	}
 
-			this.el.addEventListener('keyup', rippleRemoverFunction, { once: true });
-		});
+	rippleElement() {
+		this.el.classList.add('ripple');
+
+		this.el.addEventListener('pointerdown', this.handleRippleEvent.bind(this));
+		this.el.addEventListener(
+			'keydown',
+			this.handleRippleEvent.bind(this, true)
+		);
 	}
 }
 
