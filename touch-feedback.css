@@ -1,0 +1,44 @@
+:where(.ps-r) {
+	position: relative;
+}
+.touch-feedback {
+	--feedback-bg: hsl(0 0% 50% / 0.2);
+	--feedback-stroke-clr: hsl(0 0% 50% / 0.57);
+	pointer-events: none;
+	z-index: -2;
+}
+.touch-feedback,
+.touch-feedback-fill,
+.touch-feedback-stroke {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+}
+.touch-feedback-fill {
+	transition: background-color 200ms ease-out;
+}
+.touch-feedback-stroke {
+	border: 1px solid var(--feedback-stroke-clr);
+	opacity: 0;
+	transition: opacity 200ms ease-out;
+}
+.touch-feedback.touch-feedback-down > .touch-feedback-fill {
+	transition: none;
+	background-color: var(--feedback-bg);
+}
+
+.touch-feedback.touch-feedback-up > .touch-feedback-stroke {
+	opacity: 1;
+	transition: none;
+}
+
+/* @keyframes touch-feedback-fill {
+	0% {
+		outline: 1px solid var(--feedback-stroke-clr);
+	}
+	100% {
+		outline: 1px solid transparent;
+	}
+} */
