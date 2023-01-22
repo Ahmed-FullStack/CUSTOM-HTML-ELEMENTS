@@ -5,20 +5,33 @@
 	font-family: 'Google Sans Display', system-ui, -apple-system,
 		BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
 		'Open Sans', 'Helvetica Neue', sans-serif;
-	/* user-select: none; */
+}
+
+:root {
+	--body-bg: hsl(0 0% 0%);
+	--scrollbar-thumb-clr: hsl(0 0% 50%);
 }
 
 body {
 	min-width: 100%;
 	margin: 0;
 	min-height: 100vh;
-	background-color: hsl(0 0% 0%);
+	background-color: var(--body-bg);
 	color: #fff;
+}
+
+button,
+a {
+	user-select: none;
 }
 button {
 	border: none;
 	outline: none;
 	color: #fff;
+}
+a {
+	color: #fff;
+	text-decoration: none;
 }
 .btn {
 	font-family: 'Google Sans';
@@ -61,4 +74,20 @@ button {
 	margin: 0.8rem;
 	padding: 0.5rem;
 	text-decoration: none;
+}
+
+::-webkit-scrollbar {
+	width: 0.8rem;
+}
+
+::-webkit-scrollbar-track {
+	margin: 0.5rem;
+	background-color: var(--body-bg);
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 1rem;
+	border: 0.2rem solid var(--body-bg);
+	border-right-width: 0.4rem;
+	background-color: var(--scrollbar-thumb-clr);
 }

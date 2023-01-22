@@ -40,7 +40,7 @@ class RippleEffect {
 	createWave() {
 		const wave = document.createElement('div');
 		wave.classList.add('mdc-ripple-wave');
-		wave.classList.add('mdc-ripple-wave-animate');
+		wave.classList.add('mdc-ripple-wave-animation');
 
 		this.wavesContainer.appendChild(wave);
 
@@ -71,10 +71,7 @@ class RippleEffect {
 			const wave = this.createWave();
 			this.setCoordinates(e, wave);
 
-			const rippleRemoverFunction = this.removeRippleFunc.bind({
-				...this,
-				wave,
-			});
+			const rippleRemoverFunction = this.removeRippleFunc.bind(this, wave);
 
 			this.el.addEventListener('pointerup', rippleRemoverFunction, {
 				once: true,
@@ -88,7 +85,7 @@ class RippleEffect {
 		}
 	}
 
-	removeRippleFunc(e) {
+	removeRippleFunc(wave, e) {
 		const styles = window.getComputedStyle(e.target);
 
 		const waveRemoveDelay = styles.getPropertyValue(
@@ -99,9 +96,9 @@ class RippleEffect {
 		);
 
 		setTimeout(() => {
-			this.wave.classList.add('paper-ripple-opacity-animate');
+			wave.classList.add('mdc-ripple-wave-opacity-animation');
 			setTimeout(() => {
-				this.wave.remove();
+				wave.remove();
 			}, waveOpacityMS);
 		}, waveRemoveDelay);
 	}
