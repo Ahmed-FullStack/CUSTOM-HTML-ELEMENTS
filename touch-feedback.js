@@ -5,64 +5,78 @@ export default class touchFeedback {
 		this.touchFeedback();
 	}
 
-	handlePointerDown(e) {
-		if (this.el !== e.target) return;
-		const touchFeedbackClass = 'touch-feedback-down';
-		const touchFeedbackUp = 'touch-feedback-up';
+	handlePointerDown(keyboard = false, e) {
+		if (keyboard.type === `pointerdown`) {
+			const e = arguments[0];
+			if (e.buttons !== 1) return;
+			if (this.el !== e.target) return;
+			const touchFeedbackClass = 'touch-feedback-down';
+			const touchFeedbackUp = 'touch-feedback-up';
 
-		this.touchFeedbackContainer.classList.add(touchFeedbackClass);
-		const touchFeedbackContainer = this.touchFeedbackContainer;
-		const el = this.el;
-		function handlePointerUp() {
-			touchFeedbackContainer.classList.remove(touchFeedbackClass);
-			touchFeedbackContainer.classList.add(touchFeedbackUp);
+			this.touchFeedbackContainer.classList.add(touchFeedbackClass);
+			const touchFeedbackContainer = this.touchFeedbackContainer;
+			const el = this.el;
+			function handlePointerUp() {
+				window.timer = setTimeout(() => {
+					touchFeedbackContainer.classList.remove(touchFeedbackUp);
+				}, 50);
+				touchFeedbackContainer.classList.remove(touchFeedbackClass);
+				touchFeedbackContainer.classList.add(touchFeedbackUp);
 
-			setTimeout(() => {
-				touchFeedbackContainer.classList.remove(touchFeedbackUp);
-			}, 50);
-			document.removeEventListener('pointerup', handlePointerUp);
-			el.removeEventListener('dragend', handlePointerUp);
+				document.removeEventListener('pointerup', handlePointerUp);
+				el.removeEventListener('dragend', handlePointerUp);
+			}
+
+			document.addEventListener('pointerup', handlePointerUp, {
+				once: true,
+			});
+			document.addEventListener('touchmove', handlePointerUp, {
+				once: true,
+			});
+
+			this.el.addEventListener('dragend', handlePointerUp, {
+				once: true,
+			});
+		} else {
+			const e = arguments[1];
+			if (e.key !== 'Enter' && e.key !== ' ') return;
+			if (this.el !== e.target) return;
+			const touchFeedbackClass = 'touch-feedback-down';
+			const touchFeedbackUp = 'touch-feedback-up';
+
+			this.touchFeedbackContainer.classList.add(touchFeedbackClass);
+			const touchFeedbackContainer = this.touchFeedbackContainer;
+			const el = this.el;
+			function handlePointerUp() {
+				clearTimeout(window.timer);
+				window.timer = setTimeout(() => {
+					touchFeedbackContainer.classList.remove(touchFeedbackUp);
+				}, 50);
+				touchFeedbackContainer.classList.remove(touchFeedbackClass);
+				touchFeedbackContainer.classList.add(touchFeedbackUp);
+
+				// document.removeEventListener('pointerup', handlePointerUp);
+			}
+
+			document.addEventListener('keyup', handlePointerUp, {
+				once: true,
+			});
 		}
-
-		document.addEventListener('pointerup', handlePointerUp, {
-			once: true,
-		});
-		this.el.addEventListener('dragend', handlePointerUp, {
-			once: true,
-		});
-	}
-
-	createElements(elClasses, appendChildrens = null, elType = 'div') {
-		const el = document.createElement(elType);
-		appendChildrens?.forEach(children => {
-			el.appendChild(children);
-		});
-		elClasses.forEach(elClass => {
-			el.classList.add(elClass);
-		});
-		return el;
 	}
 
 	touchFeedbackSetup() {
-		const touchFeedbackFill = this.createElements([
-			'touch-feedback',
-			'touch-feedback-fill',
-		]);
-		const touchFeedbackStroke = this.createElements([
-			'touch-feedback',
-			'touch-feedback-stroke',
-		]);
-
-		const touchFeedbackContainer = this.createElements(
-			['touch-feedback'],
-			[touchFeedbackFill, touchFeedbackStroke]
-		);
-		this.el.appendChild(touchFeedbackContainer);
+		const touchFeedbackContainer = document.createElement('div');
+		touchFeedbackContainer.classList.add('touch-feedback');
+		this.el.prepend(touchFeedbackContainer);
 
 		return touchFeedbackContainer;
 	}
 	touchFeedback() {
-		this.el.classList.add('ps-r');
+		this.el.classList.add('feedback');
 		this.el.addEventListener('pointerdown', this.handlePointerDown.bind(this));
+		this.el.addEventListener(
+			'keydown',
+			this.handlePointerDown.bind(this, true)
+		);
 	}
 }

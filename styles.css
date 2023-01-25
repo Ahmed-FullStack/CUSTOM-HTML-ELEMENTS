@@ -8,7 +8,7 @@
 }
 
 :root {
-	--body-bg: hsl(0 0% 0%);
+	--body-bg: hsl(0 0% 6%);
 	--scrollbar-thumb-clr: hsl(0 0% 50%);
 }
 
@@ -32,6 +32,12 @@ button {
 a {
 	color: #fff;
 	text-decoration: none;
+}
+
+.icon {
+	border-radius: 50%;
+	width: 2rem;
+	aspect-ratio: 1 / 1;
 }
 .btn {
 	font-family: 'Google Sans';
@@ -60,14 +66,14 @@ a {
 	flex-direction: column;
 	align-items: start;
 	padding: 1rem 0.8rem;
-	background-color: hsl(0 0% 4%);
+	background-color: hsl(0 0% 3%);
 	width: 100%;
 	aspect-ratio: 1 / 0.7;
 	border-radius: 1rem;
 	transition: background-color 10ms ease-out;
 }
 .card:hover {
-	background-color: hsl(0 0% 5%);
+	background-color: hsl(0 0% 2%);
 }
 .card-link {
 	color: hsl(0 0% 100% / 0.9);

@@ -32,7 +32,7 @@ class RippleEffect {
 		const ripple = document.createElement('div');
 
 		ripple.classList.add('mdc-ripple');
-		this.el.appendChild(ripple);
+		this.el.prepend(ripple);
 
 		return ripple;
 	}
