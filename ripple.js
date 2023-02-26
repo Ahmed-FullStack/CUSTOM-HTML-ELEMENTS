@@ -57,10 +57,9 @@ class RippleEffect {
 
 			this.setCoordinates(e, wave, true);
 
-			const rippleRemoverFunction = this.removeRippleFunc.bind({
-				...this,
-				wave,
-			});
+			wave.style.setProperty('--mdc-ripple-scale', 1.2);
+
+			const rippleRemoverFunction = this.removeRippleFunc.bind(this, wave);
 
 			this.el.addEventListener('keyup', rippleRemoverFunction, { once: true });
 		} else {
@@ -70,6 +69,24 @@ class RippleEffect {
 
 			const wave = this.createWave();
 			this.setCoordinates(e, wave);
+
+			// const { width, height } = this.el.getBoundingClientRect();
+			// const maxValue = Math.max(width, height);
+			// const minValue = Math.min(width, height);
+			// const elBorderRadius = window.getComputedStyle(this.el).borderRadius;
+			// const elBorderRadiusWPx = elBorderRadius.substring(
+			// 	0,
+			// 	elBorderRadius.length - 2
+			// );
+			// const rippleBorderRadius = (50 / 100) * maxValue;
+			// const extraScale = rippleBorderRadius - elBorderRadiusWPx;
+			// console.log(extraScale);
+			// const rippleScale = (
+			// 	(maxValue + Math.abs(extraScale) / 2) /
+			// 	maxValue
+			// ).toFixed(2);
+
+			wave.style.setProperty('--mdc-ripple-scale', 1.2);
 
 			const rippleRemoverFunction = this.removeRippleFunc.bind(this, wave);
 
@@ -89,10 +106,10 @@ class RippleEffect {
 		const styles = window.getComputedStyle(e.target);
 
 		const waveRemoveDelay = styles.getPropertyValue(
-			'--paper-ripple-duration-wms'
+			'--mdc-ripple-duration-wms'
 		);
 		const waveOpacityMS = styles.getPropertyValue(
-			'--paper-ripple-opacity-duration-wms'
+			'--mdc-ripple-opacity-duration-wms'
 		);
 
 		setTimeout(() => {

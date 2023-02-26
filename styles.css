@@ -7,6 +7,42 @@
 		'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+.todo-list-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+	width: min(90%, 1400px);
+	margin: 1rem auto;
+}
+todo-item {
+	position: relative;
+	display: inline-block;
+	display: flex;
+	align-items: center;
+	border-radius: 1rem;
+}
+todo-item > .touch-feedback,
+todo-item > .mdc-ripple {
+	border-radius: 1rem;
+}
+.animate {
+	pointer-events: none;
+	animation: scale-down-animation 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards,
+		opacity-animation 180ms ease-out forwards 120ms;
+}
+
+@keyframes scale-down-animation {
+	100% {
+		scale: 0.78;
+	}
+}
+@keyframes opacity-animation {
+	100% {
+		opacity: 0;
+	}
+}
+todo-item:hover {
+	background-color: hsl(0 0% 40% / 0.1);
+}
 :root {
 	--body-bg: hsl(0 0% 6%);
 	--scrollbar-thumb-clr: hsl(0 0% 50%);
@@ -70,7 +106,7 @@ a {
 	width: 100%;
 	aspect-ratio: 1 / 0.7;
 	border-radius: 1rem;
-	transition: background-color 10ms ease-out;
+	transition: background-color 150ms ease-out 50ms;
 }
 .card:hover {
 	background-color: hsl(0 0% 2%);

@@ -67,7 +67,7 @@ export default class touchFeedback {
 	touchFeedbackSetup() {
 		const touchFeedbackContainer = document.createElement('div');
 		touchFeedbackContainer.classList.add('touch-feedback');
-		this.el.prepend(touchFeedbackContainer);
+		this.el.appendChild(touchFeedbackContainer);
 
 		return touchFeedbackContainer;
 	}

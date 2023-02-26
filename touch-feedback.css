@@ -7,6 +7,7 @@
 	--feedback-stroke-clr: hsl(0 0% 50% / 0.57);
 	pointer-events: none;
 	z-index: -1;
+	border-radius: inherit;
 }
 .touch-feedback,
 .touch-feedback::before,
@@ -23,7 +24,7 @@
 	content: '';
 }
 .touch-feedback::before {
-	transition: background-color 220ms ease-out;
+	transition: background-color 70ms ease-out;
 }
 .touch-feedback::after {
 	border: 1px solid var(--feedback-stroke-clr);
@@ -31,7 +32,6 @@
 	transition: opacity 260ms ease-out;
 }
 .touch-feedback.touch-feedback-down::before {
-	transition: none;
 	background-color: var(--feedback-bg);
 }
 
