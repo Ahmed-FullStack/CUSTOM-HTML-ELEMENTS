@@ -18,9 +18,9 @@ export default class touchFeedback {
 			const el = this.el;
 			function handlePointerUp() {
 				window.timer = setTimeout(() => {
+					touchFeedbackContainer.classList.remove(touchFeedbackClass);
 					touchFeedbackContainer.classList.remove(touchFeedbackUp);
 				}, 50);
-				touchFeedbackContainer.classList.remove(touchFeedbackClass);
 				touchFeedbackContainer.classList.add(touchFeedbackUp);
 
 				document.removeEventListener('pointerup', handlePointerUp);

@@ -9,8 +9,8 @@
 		var(--mdc-ripple-opacity-duration-wms) * 1ms
 	);
 	--mdc-ripple-duration: calc(var(--mdc-ripple-duration-wms) * 1ms);
-	--mdc-ripple-bg: hsl(0 0% 50%);
-	--mdc-ripple-blur: blur(0.75rem);
+	--mdc-ripple-bg: hsl(0 0% 50% / 0.4);
+	--mdc-ripple-blur: blur(0.3rem);
 
 	display: inline-block;
 	position: relative;
@@ -39,14 +39,14 @@
 	width: var(--max-value);
 	height: var(--max-value);
 	background-color: var(--mdc-ripple-bg);
-	opacity: 0.4;
 	border-radius: 50%;
 	filter: var(--mdc-ripple-blur);
 }
 
 .mdc-ripple-wave-animation {
 	animation: paper-ripple var(--mdc-ripple-duration, 200ms) var(--cubic-bezier)
-		forwards;
+			forwards,
+		opacity-in 100ms;
 }
 
 .mdc-ripple-wave-opacity-animation {
@@ -63,5 +63,15 @@
 		left: 50%;
 		translate: -50% -50%;
 		scale: var(--mdc-ripple-scale, 1);
+	}
+}
+
+@keyframes opacity-in {
+	0% {
+		animation-timing-function: linear;
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
 	}
 }

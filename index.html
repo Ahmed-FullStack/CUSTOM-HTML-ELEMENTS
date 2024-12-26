@@ -5,12 +5,12 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Google+Sans:wght@300;400;500;600;700;800;900&family=Google+Sans+Display:wght@300;400;500;600;700;800;900&family=Google+Sans:wght@300;400;500;600;700;800;900&family=Youtube+Sans+Display:wght@300;400;500;600;700;800;900&display=swap"
 			rel="stylesheet"
-		/>
+		/> -->
 		<link rel="stylesheet" href="./styles.css" />
 		<link rel="stylesheet" href="./paper-ripple.css" />
 		<link rel="stylesheet" href="./touch-feedback.css" />
@@ -21,7 +21,10 @@
 		<div class="todo-list-grid">
 			<todo-item class="ripple">
 				Custom TodoList
-				<div slot="description">Warning</div>
+				<div slot="description">
+					<span slot="description">Auto</span>
+					Warning
+				</div>
 			</todo-item>
 			<todo-item class="ripple">Google Drive Clone</todo-item>
 			<todo-item class="ripple">Google Search Engine</todo-item>
@@ -36,7 +39,7 @@
 				>Gain 200 WPM Currently My Speed Is 169 WPM</todo-item
 			>
 		</div>
-		<div class="icon feedback"></div>
+		<div class="icon feedback ripple"></div>
 		<div class="grid">
 			<div class="card feedback">
 				<h3>Web Development (Time For Time)</h3>

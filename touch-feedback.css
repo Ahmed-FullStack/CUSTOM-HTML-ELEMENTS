@@ -24,12 +24,12 @@
 	content: '';
 }
 .touch-feedback::before {
-	transition: background-color 70ms ease-out;
+	transition: background-color 50ms ease-out;
 }
 .touch-feedback::after {
 	border: 1px solid var(--feedback-stroke-clr);
 	opacity: 0;
-	transition: opacity 260ms ease-out;
+	transition: opacity 260ms ease-out 50ms;
 }
 .touch-feedback.touch-feedback-down::before {
 	background-color: var(--feedback-bg);

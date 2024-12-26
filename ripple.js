@@ -8,7 +8,7 @@ class RippleEffect {
 	}
 
 	setCoordinates(e, wave, keyboard = false) {
-		const { x, y, width, height } = e.target.getBoundingClientRect();
+		const { x, y, width, height } = this.el.getBoundingClientRect();
 
 		const max = Math.max(width, height);
 
@@ -64,7 +64,11 @@ class RippleEffect {
 			this.el.addEventListener('keyup', rippleRemoverFunction, { once: true });
 		} else {
 			const e = arguments[0];
-			if (e.target !== this.el) return;
+
+			const elIndex = [...this.el.children].findIndex(el => el == e.target);
+
+			if (e.target !== this.el && e.target.querySelector('.mdc-ripple')) return;
+			if (!this.el.children[elIndex] && this.el !== e.target) return;
 			if (e.buttons !== 1) return;
 
 			const wave = this.createWave();

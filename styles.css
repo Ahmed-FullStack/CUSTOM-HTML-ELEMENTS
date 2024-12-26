@@ -132,4 +132,5 @@ a {
 	border: 0.2rem solid var(--body-bg);
 	border-right-width: 0.4rem;
 	background-color: var(--scrollbar-thumb-clr);
+	-webkit-transition: border-right-width 200ms ease-out;
 }
